@@ -16,7 +16,7 @@ npm install --save ckeditor5-direction
 And add it to your plugin list and toolbar configuration:
 
 ```javascript
-import Direction from 'ckeditor5-direction/src/alignment';
+import Direction from 'ckeditor5-direction/src/direction';
 
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
