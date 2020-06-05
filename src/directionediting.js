@@ -63,10 +63,8 @@ function _buildDefinition( options ) {
 
 	for ( const option of options ) {
 		definition.view[ option ] = {
-			key: 'style',
-			value: {
-				'direction': option
-			}
+			key: 'dir',
+			value: option
 		};
 	}
 
