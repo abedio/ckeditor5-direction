@@ -23,6 +23,8 @@ export default class DirectionCommand extends Command {
 	 * @inheritDoc
 	 */
 	refresh() {
+		const editor = this.editor;
+		const locale = editor.locale;
 		const firstBlock = first( this.editor.model.document.selection.getSelectedBlocks() );
 
 		// As first check whether to enable or disable the command as the value will always be false if the command cannot be enabled.
@@ -35,7 +37,7 @@ export default class DirectionCommand extends Command {
 		 * @readonly
 		 * @member {String} #value
 		 */
-		this.value = ( this.isEnabled && firstBlock.hasAttribute( 'direction' ) ) ? firstBlock.getAttribute( 'direction' ) : 'ltr';
+		this.value = ( this.isEnabled && firstBlock.hasAttribute( 'direction' ) ) ? firstBlock.getAttribute( 'direction' ) : locale.contentLanguageDirection === 'rtl' ? 'rtl' : 'ltr';
 	}
 
 	/**
@@ -63,7 +65,7 @@ export default class DirectionCommand extends Command {
 			// - default (should not be stored in model as it will bloat model data)
 			// - equal to currently set
 			// - or no value is passed - denotes default direction.
-			const removeDirection = isDefault( value ) || currentDirection === value || !value;
+			const removeDirection = /*isDefault( value ) ||*/ currentDirection === value || !value;
 
 			if ( removeDirection ) {
 				removeDirectionFromSelection( blocks, writer );
@@ -98,5 +100,13 @@ function removeDirectionFromSelection( blocks, writer ) {
 function setDirectionOnSelection( blocks, writer, direction ) {
 	for ( const block of blocks ) {
 		writer.setAttribute( DIRECTION, direction, block );
+		const currentAlignment = block.getAttribute( 'alignment' );
+		if (currentAlignment !== 'justified' || currentAlignment !== 'center') {
+			const alignment = direction === 'rtl' ? 
+								(currentAlignment ==='left' || !currentAlignment ) && 'right' 
+								:
+								(currentAlignment ==='right' || !currentAlignment) && 'left';
+			if (alignment) writer.setAttribute('alignment', alignment, block);
+		}
 	}
 }
