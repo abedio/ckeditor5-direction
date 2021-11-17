@@ -33,10 +33,5 @@ export function isSupported( option ) {
  */
 export function isDefault( direction ) {
 	// Right now only LTR is supported so the 'ltr' value is always the default one.
-	// return direction === 'ltr';
-	if ( locale.contentLanguageDirection == 'rtl' ) {
-		return direction === 'rtl';
-	} else {
-		return direction === 'ltr';
-	}
+	return direction === 'ltr';
 }
