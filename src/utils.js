@@ -31,7 +31,7 @@ export function isSupported( option ) {
  * @param {String} direction The name of the direction to check.
  * @returns {Boolean}
  */
-export function isDefault( direction ) {
+export function isDefault( direction, locale ) {
 	// Right now only LTR is supported so the 'ltr' value is always the default one.
 	// return direction === 'ltr';
 	if ( locale.contentLanguageDirection == 'rtl' ) {
