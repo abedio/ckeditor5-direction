@@ -42,7 +42,8 @@
 		 schema.extend( '$block', { allowAttributes: 'direction' } );
 		 editor.model.schema.setAttributeProperties( 'direction', { isFormatting: true } );
  
-		 const definition = _buildDefinition( enabledOptions/*.filter( option => !isDefault( option ) )*/ );
+		//  const definition = _buildDefinition( enabledOptions.filter( option => !isDefault( option ) ) );
+		 const definition = _buildDefinition( enabledOptions );
  
 		 editor.conversion.attributeToAttribute( definition );
  
